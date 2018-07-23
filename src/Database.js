@@ -7,10 +7,10 @@ class Database {
 		this.knex = require("knex")({
 			client: "mysql2",
 			connection: {
-				"host"    : Config.hostname,
-				"database": Config.database,
-				"user"    : Config.username,
-				"password": Config.password
+                "host"    : Config.hostname,
+                "database": Config.database,
+                "user"    : Config.username,
+                "password": Config.password
 			}
 		})
 	}
@@ -30,11 +30,11 @@ class Database {
 			"attributes": obj.data
 		})
 	}
-	handleDropPlayer(username) { return this.knex("penguins").where("username", username).del() }
+	handleDropPlayer(username) { return this.knex("penguins").where({username}).del() }
 	handleDropAll() { return this.knex("penguins").whereNot("id", 0).del() }
 
-	getUsernamesInRoom(room) { return this.knex("penguins").select("username").where("room", room) }
-	getAttributesInRoom(room) { return this.knex("penguins").select("username", "attributes").where("room", room) }
+	getUsernamesInRoom(room) { return this.knex("penguins").select("username").where({room}) }
+	getAttributesInRoom(room) { return this.knex("penguins").select("username", "attributes").where({room}) }
 }
 
 module.exports = Database
